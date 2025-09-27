@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wambugu Moses</title>
+        {% load static %}
+    </head>
+    <body>
+        <!-- navbar -->
+         <nav>
+            <div class="logo">
+                <img src="{% static 'logo/wambugu.png' %}" alt="logo">
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+         </nav>
+
+         <!-- hero -->
+          <section class="hero" id="home">
+            <h1>Hi, I'm Wambugu Moses.</h1>
+            <p> Software Engineer | Graphic Designer | Upcoming AI Engineer <br>
+                Building Tech Solutions that Inspire Change.Advocate for sustainability & STEM mentoring.</p>
+            <div class="socials">
+                <a href="https://github.com/Polymathh" target="_blank"><img src="{% static 'logo/github.png' %}"></a>
+                <a href="https://www.linkedin.com/in/wambugumoses/" target="_blank"><img src="{% static 'logo/linkedin.png' %}"></a>               
+                <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/tiktok.png' %}"></a>               
+            </div>
+          </section>
+
+          <!-- About -->
+           <section class="about" id="about">
+            <h2>Who I am.</h2>
+            <p> I’m a versatile Software Developer, Graphic Designer, and an aspiring AI Engineer. My journey blends creativity with technology, allowing me to design and build digital solutions that are not only functional but also visually impactful.
+                I create solutions that blend design, code, and strategy through web and mobile development, digital marketing, and UI/UX design. Passionate about sustainability and STEM mentoring, I use technology as a tool for positive change and to empower communities. Let’s connect and build impactful solutions together.</p>
+           </section>
+    </body>
+</html>
