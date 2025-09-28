@@ -8,3 +8,4 @@ def home(request):
         "categories": categories,
         "projects": projects,
     })
+
