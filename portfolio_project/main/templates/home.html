@@ -46,5 +46,54 @@
            </section>
            
            <!-- Project -->
+            <section id="projects" class="projects">
+                <h2>My Work Showcase</h2>
+                <div class="project-grid">
+                    {% for project in projects %}
+                        <div class="project-card">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <h3>{{ project.title }}</h3>
+                            <p>{{ project.description }}</p>
+                            {% if project.link %}
+                                <a href="{{ project.link }}" class="btn" target="_blank">View Project</a>
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                     <p>No projects added yet.</p>
+                    {%endfor%}
+                </div>
+            </section>
+
+            <!-- Contact -->
+             <section class="contact">
+                <div class="container">
+                    <div class="container-left">
+                       <h2>Let's Connect...</h2> 
+                       <p>Have a project idea, collaboration in mind, or just want to say hello? Reach out through the form or via socials.</p>
+
+                       <!-- socials-icons -->
+                        <div class="socials">
+                            <a href="https://github.com/Polymathh" target="_blank"><img src="{% static 'logo/github.png' %}"></a>
+                            <a href="https://www.linkedin.com/in/wambugumoses/" target="_blank"><img src="{% static 'logo/linkedin.png' %}"></a>               
+                            <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/tiktok.png' %}"></a>
+                            <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/phone.png' %}"></a>
+                            <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/whatsapp.png' %}"></a>
+                        </div>
+                    </div>
+
+                    <div class="container-right">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="form-row">
+                                {{ form.name }} {{ form.phone }}
+                            </div>
+                            {{ form.email }}
+                            {{ form.subject }}
+                            {{ form.message }}
+                            <button type="submit" class="btn-submit">LET'S TALK</button>
+                        </form>
+                    </div>
+                </div>
+             </section>
     </body>
 </html>
