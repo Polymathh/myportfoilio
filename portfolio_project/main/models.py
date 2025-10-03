@@ -2,7 +2,6 @@ from django.db import models
 
 class Project(models.Model):
     CATEGORY_CHOICES = [
-        ('all', 'All'),
         ('software', 'Software'),
         ('design', 'Graphic Design'),
         ('ai', 'AI work'),

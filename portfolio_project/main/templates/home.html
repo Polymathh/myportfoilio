@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Wambugu Moses</title>
         {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     </head>
     <body>
         <!-- navbar -->
@@ -24,24 +25,32 @@
          <!-- hero -->
           <section class="hero" id="home">
             <h1>Hi, I'm Wambugu Moses.</h1>
-            <p> Software Engineer | Graphic Designer | Upcoming AI Engineer <br>
-                Building Tech Solutions that Inspire Change.Advocate for sustainability & STEM mentoring.</p>
+            <p id="p1"> Software Engineer | Graphic Designer | Upcoming AI Engineer <br></p>
+            <p id="p2">Building Tech Solutions that Inspire Change.Advocate for sustainability & STEM mentoring.</p>
             <div class="socials">
                 <a href="https://github.com/Polymathh" target="_blank"><img src="{% static 'logo/github.png' %}"></a>
+                <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/tiktok.png' %}"></a>
                 <a href="https://www.linkedin.com/in/wambugumoses/" target="_blank"><img src="{% static 'logo/linkedin.png' %}"></a>               
-                <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/tiktok.png' %}"></a>               
             </div>
           </section>
 
           <!-- About -->
            <section class="about" id="about">
             <h2>Who I am.</h2>
-            <p> I’m a versatile Software Developer, Graphic Designer, and an aspiring AI Engineer. My journey blends creativity with technology, allowing me to design and build digital solutions that are not only functional but also visually impactful.
-                I create solutions that blend design, code, and strategy through web and mobile development, digital marketing, and UI/UX design. Passionate about sustainability and STEM mentoring, I use technology as a tool for positive change and to empower communities. Let’s connect and build impactful solutions together.</p>
-            <div class="image">
-                <img src="{% static 'images/kim.jpg' %}" alt="My photo1">
+            <div class="text">
+                <p> I’m a versatile Software Developer, Graphic Designer, and an aspiring AI Engineer. My journey blends creativity with technology, allowing me to design and build digital solutions that are not only functional but also visually impactful.<br><br>
+                    I create solutions that blend design, code, and strategy through web and mobile development, digital marketing, and UI/UX design. Passionate about sustainability and STEM mentoring, I use technology as a tool for positive change and to empower communities. Let’s connect and build impactful solutions together.</p>
+            </div>
+            
+            <div class="images">
+                <div class="left">
                 <img src="{% static 'images/kim1.jpg' %}" alt="My photo1">
+            </div>
+
+            <div class="right">
+                <img src="{% static 'images/kim.jpg' %}" alt="My photo1">
                 <img src="{% static 'images/kim2.jpg' %}" alt="My photo1">
+            </div>
             </div>
            </section>
            
@@ -52,11 +61,13 @@
                     {% for project in projects %}
                         <div class="project-card">
                             <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <div>
                             <h3>{{ project.title }}</h3>
-                            <p>{{ project.description }}</p>
-                            {% if project.link %}
-                                <a href="{{ project.link }}" class="btn" target="_blank">View Project</a>
-                            {% endif %}
+                                <p>{{ project.description }}</p>
+                                {% if project.link %}
+                                    <a href="{{ project.link }}" class="btn" target="_blank">View Project</a>
+                                {% endif %}
+                            </div>
                         </div>
                     {% empty %}
                      <p>No projects added yet.</p>
@@ -65,19 +76,19 @@
             </section>
 
             <!-- Contact -->
-             <section class="contact">
+             <section class="contact" id="contact">
+                <h2>Let's Connect...</h2> 
                 <div class="container">
                     <div class="container-left">
-                       <h2>Let's Connect...</h2> 
-                       <p>Have a project idea, collaboration in mind, or just want to say hello? Reach out through the form or via socials.</p>
+                       <p>Have a project idea, collaboration in mind, or just want to say hello? <br>Reach out through the form or via socials.</p>
 
                        <!-- socials-icons -->
-                        <div class="socials">
+                        <div class="socials1">
                             <a href="https://github.com/Polymathh" target="_blank"><img src="{% static 'logo/github.png' %}"></a>
                             <a href="https://www.linkedin.com/in/wambugumoses/" target="_blank"><img src="{% static 'logo/linkedin.png' %}"></a>               
                             <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/tiktok.png' %}"></a>
-                            <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/phone.png' %}"></a>
                             <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/whatsapp.png' %}"></a>
+                            <a href="https://www.tiktok.com/@wambugu_ai?is_from_webapp=1&sender_device=pc" target="_blank"><img src="{% static 'logo/phone.png' %}"></a>
                         </div>
                     </div>
 
@@ -94,6 +105,6 @@
                         </form>
                     </div>
                 </div>
-             </section>
+             </section>               
     </body>
 </html>

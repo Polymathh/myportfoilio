@@ -8,7 +8,13 @@ from .models import Project
 
 def home(request):
     categories = Project.CATEGORY_CHOICES
-    projects = Project.objects.all()[:6]
+    selected_category = request.GET.get("category", "all")
+    if selected_category == "all":
+        projects = Project.objects.all()[:6]
+    else:
+        projects = Project.objects.filter(category=selected_category)
+
+
     form = ContactForm()
 
     if request.method == "POST":
