@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@s*0s0@td@2_%_#am8zfv7fm_15rlg(vea2y&ni-!^w*aq&u*-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -123,7 +123,7 @@ STATIC_URL = '/static/'  # URL prefix for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # Directory where we'll put our CSS, JS, images
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where Django collects static files for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where Django collects static files for production
 
 # Media files (User uploaded content)
 MEDIA_URL = '/media/'  # URL prefix for uploaded files
