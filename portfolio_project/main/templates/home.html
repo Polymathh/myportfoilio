@@ -13,7 +13,11 @@
             <div class="logo">
                 <img src="{% static 'logo/wambugu.png' %}" alt="logo">
             </div>
-            <ul>
+            <!-- Humbuger menu -->
+             <div class="humbuger"  id="humbuger" onclick="toggleMenu()">
+                ☰
+             </div>
+            <ul id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -49,7 +53,7 @@
 
             <div class="right">
                 <img src="{% static 'images/kim.jpg' %}" alt="My photo1">
-                <img src="{% static 'images/kim2.jpg' %}" alt="My photo1">
+                <img src="{% static 'images/kim2.png' %}" alt="My photo1">
             </div>
             </div>
            </section>
@@ -101,10 +105,30 @@
                             {{ form.email }}
                             {{ form.subject }}
                             {{ form.message }}
-                            <button type="submit" class="btn-submit">LET'S TALK</button>
+                            <button type="submit" class="btn-submit">SEND</button>
                         </form>
                     </div>
                 </div>
-             </section>               
+             </section>  
+
+             
+             <script>
+                const humbuger = document.getElementById("humbuger");
+                const navLinks = document.getElementById("nav-links");
+              
+                // Toggle menu on humbuger click
+                humbuger.addEventListener("click", () => {
+                  navLinks.classList.toggle("show");
+                });
+              
+                // Close menu when a link is clicked
+                document.querySelectorAll("#nav-links a").forEach(link => {
+                  link.addEventListener("click", () => {
+                    navLinks.classList.remove("show");
+                  });
+                });
+              </script>
+              
+                           
     </body>
 </html>
