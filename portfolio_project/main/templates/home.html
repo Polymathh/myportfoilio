@@ -61,6 +61,21 @@
            <!-- Project -->
             <section id="projects" class="projects">
                 <h2>My Work Showcase</h2>
+
+                <!-- Nav bar -->
+                <div class="project-nav">
+                    <a href="?category=all" 
+                    class="filter-btn {% if request.GET.category == 'all' or not request.GET.category %}active{% endif %}">
+                    All
+                    </a>
+                    {% for key, label in categories %}
+                    <a href="?category={{ key }}#projects" 
+                        class="filter-btn {% if request.GET.category == key %}active{% endif %}">
+                        {{ label }}
+                    </a>
+                    {% endfor %}
+                </div>
+
                 <div class="project-grid">
                     {% for project in projects %}
                         <div class="project-card">
@@ -127,6 +142,28 @@
                     navLinks.classList.remove("show");
                   });
                 });
+
+                const filterBtns = document.querySelectorAll(".filter-btn");
+                const projectCards = document.querySelectorAll(".project-card");
+
+                filterBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    // remove active class
+                    filterBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    const filter = btn.getAttribute("data-filter");
+
+                    projectCards.forEach(card => {
+                    if (filter === "all" || card.dataset.category === filter) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                    });
+                });
+                });
+
               </script>
               
                            
