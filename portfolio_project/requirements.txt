@@ -3,3 +3,6 @@ asgiref==3.8.1
 sqlparse==0.5.3
 whitenoise==6.10.0
 python-decouple==3.8
+channels==4.2.2
+channels_redis==4.2.1
+daphne==4.1.2
