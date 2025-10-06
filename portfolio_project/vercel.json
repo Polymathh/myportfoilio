@@ -1,15 +1,5 @@
 {
     "version": 2,
-    "builds": [
-      {
-        "src": "portfolio_project/wsgi.py",
-        "use": "@vercel/python"
-      },
-      {
-        "src": "staticfiles/**/*",
-        "use": "@vercel/static"
-      }
-    ],
     "routes": [
       {
         "src": "/static/(.*)",
