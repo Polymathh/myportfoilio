@@ -123,7 +123,7 @@ STATIC_URL = '/static/'  # URL prefix for static files
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # Directory where we'll put our CSS, JS, images
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where Django collects static files for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where Django collects static files for production
 
 # Media files (User uploaded content)
 MEDIA_URL = '/media/'  # URL prefix for uploaded files
