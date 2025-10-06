@@ -16,11 +16,14 @@ colorama==0.4.6
 constantly==23.10.4
 cryptography==44.0.2
 daphne==4.1.2
+dj-database-url==3.0.1
 Django==5.1.7
 django-browser-reload==1.18.0
+django-crispy-forms==2.4
 django-livereload-server==0.5.1
 folium==0.19.6
 frozenlist==1.6.0
+gunicorn==23.0.0
 hyperlink==21.0.0
 idna==3.10
 incremental==24.7.2
@@ -29,9 +32,9 @@ MarkupSafe==3.0.2
 msgpack==1.1.0
 multidict==6.4.4
 mysql==0.0.3
-mysqlclient==2.2.7
 numpy==2.2.6
 opencage==3.1.0
+packaging==25.0
 phonenumbers==9.0.5
 pillow==11.1.0
 propcache==0.3.1
@@ -40,6 +43,7 @@ pyasn1_modules==0.4.2
 pycparser==2.22
 PyMySQL==1.1.1
 pyOpenSSL==25.0.0
+python-decouple==3.8
 redis==6.0.0
 requests==2.32.3
 service-identity==24.2.0
