@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('/tmp', 'db.sqlite3'),  # writable temp folder
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
