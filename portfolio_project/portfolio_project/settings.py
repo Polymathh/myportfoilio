@@ -94,7 +94,7 @@ if ON_VERCEL:
     shutil.copyfile(original_db_path, tmp_db_path)  # copy DB to a writable temp directory
     DB_PATH = tmp_db_path
 else:
-    DB_PATH = PROJECT_DIR / "db.sqlite3"
+    DB_PATH = BASE_DIR / "db.sqlite3"
 
 DATABASES = {
     "default": {
