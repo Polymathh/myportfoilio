@@ -123,7 +123,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
       display: flex; 
       gap: 10px;
     }
-    .hero { min-height: 100vh; padding-top: 100px; }
+    .hero { height: 100vh; padding-top: 100px; }
     .hero h1{ font-size: 30px; padding-bottom: 30px; padding-top: 60px; font-weight: 600; }  
     #p1{ font-size: 20px; font-weight: 500; padding-bottom: 30px; } 
     #p2{ font-size: 18px; font-weight: 400; padding-bottom: 80px; } 
