@@ -131,8 +131,8 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
     .hero .socials img{ width: 40px; transition: 0.3s; filter: brightness(0) invert(1); } 
 
     /* * About Section */  
-    .about { padding: 100px 5%; align-items: center; display: flex; flex-direction: column; gap:20px; border-top: 0.3px solid #00FF00} 
-    .about h2{ text-align: center; padding-top: 60px; padding-bottom: 30px; font-size: 30px;} 
+    .about { padding: 2rem 5%; align-items: center; display: flex; flex-direction: column; gap:20px; } 
+    .about h2{ text-align: center; padding-top: 40px; padding-bottom: 30px; font-size: 30px;} 
     .about p { margin:0 auto; width: 100%; text-align:center; font-size: 14px; font-weight: 400; } 
     .images { margin-left: 20px; width: 100%; display: grid; grid-template-columns: max-content max-content; gap: 11px; padding-top: 90px; justify-content: center;} 
     .left img { margin-top:30.5px; width: 190px; height: 250px; border-radius: 35px; object-fit: cover; } 
