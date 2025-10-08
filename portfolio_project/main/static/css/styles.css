@@ -148,10 +148,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
     .project-card h3 { font-size: 16px; font-weight: 600; margin-left: 10px; margin-bottom: 10px; } 
     .project-card p { font-size: 14px; font-weight: 400; margin-left: 10px; margin-bottom: 40px; } 
     .project-card .btn { background: #00FF00; width: 500px; padding: 5px 60px; border-radius: 10px; cursor: pointer; margin-top: auto; } 
-    .project-nav a {
-      font-size: 12px;
-      padding: 4px 10px;
-    }  
+    .project-nav a { font-size: 12px; padding: 4px 6px; }  
     .contact h2{padding-top: 60px;} 
     .contact p{font-size: 12px;}  
     .contact .container {
