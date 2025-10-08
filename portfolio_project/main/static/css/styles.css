@@ -140,7 +140,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
 
     
     /* projects section */ 
-    .projects { padding: 2rem 5%; text-align: center; } 
+    .projects { padding: 2rem 5%; text-align: center; margin-top: 20px;} 
     .projects h2 {padding-top: 60px; padding-bottom: 63px; } 
     .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 47px; } 
     .project-card { transform: translateY(-6px); box-shadow: 0 0 18px rgba(0, 255, 102, 0.9); gap: 10px; display: flex; flex-direction: column; height: 450px; background: #2c2b2b; padding: 10px; border-radius: 20px; text-align: left; transition:0.3s; width: 100%; } 
