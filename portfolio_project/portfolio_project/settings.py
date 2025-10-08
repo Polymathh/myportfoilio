@@ -90,7 +90,7 @@ ON_VERCEL = os.environ.get("VERCEL") == "1"
 
 if ON_VERCEL:
     tmp_db_path = "/tmp/db.sqlite3"
-    original_db_path = PROJECT_DIR / "db.sqlite3"
+    original_db_path = BASE_DIR / "db.sqlite3"
     shutil.copyfile(original_db_path, tmp_db_path)  # copy DB to a writable temp directory
     DB_PATH = tmp_db_path
 else:
