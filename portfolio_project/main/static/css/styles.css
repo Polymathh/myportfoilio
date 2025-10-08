@@ -123,7 +123,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
       display: flex; 
       gap: 10px;
     }
-    .hero { height: 100vh; margin-top: 100px;}
+    .hero { min-height: 100vh; padding-top: 100px; padding-bottom: 80px; margin: 0;}
     .hero h1{ font-size: 30px; padding-bottom: 30px; padding-top: 60px; font-weight: 600; }  
     #p1{ font-size: 20px; font-weight: 500; padding-bottom: 30px; } 
     #p2{ font-size: 18px; font-weight: 400; padding-bottom: 80px; } 
@@ -131,7 +131,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
     .hero .socials img{ width: 40px; transition: 0.3s; filter: brightness(0) invert(1); } 
 
     /* * About Section */  
-    .about { padding: 2rem 5%; align-items: center; display: flex; flex-direction: column; gap:20px; padding-bottom: 60px; margin-top: 80px;} 
+    .about { padding: 100px 5%; align-items: center; display: flex; flex-direction: column; gap:20px; border-top: 0.3px solid #00FF00} 
     .about h2{ text-align: center; padding-top: 60px; padding-bottom: 30px; font-size: 30px;} 
     .about p { margin:0 auto; width: 100%; text-align:center; font-size: 14px; font-weight: 400; } 
     .images { margin-left: 20px; width: 100%; display: grid; grid-template-columns: max-content max-content; gap: 11px; padding-top: 90px; justify-content: center;} 
