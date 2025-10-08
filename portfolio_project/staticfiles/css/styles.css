@@ -123,24 +123,25 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
       display: flex; 
       gap: 10px;
     }
-    .hero h1{ font-size: 30px; padding-bottom: 30px; padding-top: 50px; font-weight: 600; }  
+    .hero { min-height: 100vh; padding-top: 100px; padding-bottom: 80px; margin: 0;}
+    .hero h1{ font-size: 30px; padding-bottom: 30px; padding-top: 60px; font-weight: 600; }  
     #p1{ font-size: 20px; font-weight: 500; padding-bottom: 30px; } 
     #p2{ font-size: 18px; font-weight: 400; padding-bottom: 80px; } 
     .hero .socials{ display: flex; justify-content: center; gap: 40px; } 
     .hero .socials img{ width: 40px; transition: 0.3s; filter: brightness(0) invert(1); } 
 
     /* * About Section */  
-    .about { padding: 2rem 5%; align-items: center; display: flex; flex-direction: column; gap:20px; padding-bottom: 60px; } 
-    .about h2{ text-align: center; padding-top: 40px; padding-bottom: 30px; font-size: 30px;} 
+    .about { padding: 100px 5%; align-items: center; display: flex; flex-direction: column; gap:20px; border-top: 0.3px solid #00FF00} 
+    .about h2{ text-align: center; padding-top: 60px; padding-bottom: 30px; font-size: 30px;} 
     .about p { margin:0 auto; width: 100%; text-align:center; font-size: 14px; font-weight: 400; } 
-    .images { margin-left: 20px; width: 100%; display: grid; grid-template-columns: max-content max-content; gap: 11px; padding-top: 90px;} 
+    .images { margin-left: 20px; width: 100%; display: grid; grid-template-columns: max-content max-content; gap: 11px; padding-top: 90px; justify-content: center;} 
     .left img { margin-top:30.5px; width: 190px; height: 250px; border-radius: 35px; object-fit: cover; } 
     .right { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; } 
     .right img { width: 190px; height: 153px; border-radius: 35px; object-fit: cover; } 
 
     
     /* projects section */ 
-    .projects { padding: 2rem 5%; text-align: center; } 
+    .projects { padding: 2rem 5%; text-align: center; margin-top: 20px;} 
     .projects h2 {padding-top: 60px; padding-bottom: 63px; } 
     .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 47px; } 
     .project-card { transform: translateY(-6px); box-shadow: 0 0 18px rgba(0, 255, 102, 0.9); gap: 10px; display: flex; flex-direction: column; height: 450px; background: #2c2b2b; padding: 10px; border-radius: 20px; text-align: left; transition:0.3s; width: 100%; } 
@@ -148,10 +149,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
     .project-card h3 { font-size: 16px; font-weight: 600; margin-left: 10px; margin-bottom: 10px; } 
     .project-card p { font-size: 14px; font-weight: 400; margin-left: 10px; margin-bottom: 40px; } 
     .project-card .btn { background: #00FF00; width: 500px; padding: 5px 60px; border-radius: 10px; cursor: pointer; margin-top: auto; } 
-    .project-nav a {
-      font-size: 14px;
-      padding: 6px 12px;
-    }  
+    .project-nav a { font-size: 12px; padding: 4px 6px; }  
     .contact h2{padding-top: 60px;} 
     .contact p{font-size: 12px;}  
     .contact .container {
