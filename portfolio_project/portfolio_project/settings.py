@@ -149,7 +149,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where Django collects static files for
 
 # Media files (User uploaded content)
 MEDIA_URL = '/media/'  # URL prefix for uploaded files
-MEDIA_ROOT = "/tmp/media"  # Directory where uploaded files are stored
+MEDIA_ROOT = BASE_DIR/ 'media'  # Directory where uploaded files are stored
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
