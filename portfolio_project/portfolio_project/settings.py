@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+import shutil
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -75,16 +77,31 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# ON_VERCEL = os.environ.get("VERCEL") == "1"
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": str(BASE_DIR / "db.sqlite3") if not ON_VERCEL else "/tmp/db.sqlite3",
+#     }
+# }
+
 ON_VERCEL = os.environ.get("VERCEL") == "1"
+
+if ON_VERCEL:
+    tmp_db_path = "/tmp/db.sqlite3"
+    original_db_path = PROJECT_DIR / "db.sqlite3"
+    shutil.copyfile(original_db_path, tmp_db_path)  # copy DB to a writable temp directory
+    DB_PATH = tmp_db_path
+else:
+    DB_PATH = PROJECT_DIR / "db.sqlite3"
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(BASE_DIR / "db.sqlite3") if not ON_VERCEL else "/tmp/db.sqlite3",
+        "NAME": str(DB_PATH),
     }
 }
-
-
 
 
 
