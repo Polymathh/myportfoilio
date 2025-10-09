@@ -53,7 +53,7 @@ nav ul li a:hover { color: #00FF00; } .hero{ text-align: center; padding: 6rem 2
 }
 
 
-.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 47px; } 
+.project-grid { display: grid; grid-template-columns: 1fr; gap: 47px; } 
 .project-card { gap: 10px; display: flex; height: 300px; background: #2c2b2b; padding: 10px; border-radius: 20px; text-align: left; transition:0.3s; width: 1024px; height: 300px; margin: 20px auto; } 
 .project-card:hover { transform: translateY(-6px); box-shadow: 0 0 18px rgba(0, 255, 102, 0.9); } 
 .project-card img { width: 443px; height: 283px; border-radius: 20px; } 
