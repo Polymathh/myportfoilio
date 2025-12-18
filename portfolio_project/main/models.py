@@ -9,8 +9,9 @@ class Project(models.Model):
 
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    description = models.CharField(max_length=300)
+    description = models.TextField()
     image = models.ImageField(upload_to='projects/')
+    pdf = models.FileField(upload_to='projects/', blank=True, null=True)
     link = models.URLField(blank=True)
 
     def __str__(self):
