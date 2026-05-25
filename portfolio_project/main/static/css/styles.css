@@ -502,7 +502,7 @@ textarea.admin-input {
     .hero h1{ font-size: 30px; padding-bottom: 30px; padding-top: 60px; font-weight: 600; }  
     #p1{ font-size: 20px; font-weight: 500; padding-bottom: 30px; } 
     #p2{ font-size: 18px; font-weight: 400; padding-bottom: 80px; } 
-    .hero .socials{ display: flex; justify-content: center; gap: 40px; } 
+    .hero .socials{ display: flex; justify-content: center; gap: 20px; } 
     .hero .socials img{ width: 40px; transition: 0.3s; filter: brightness(0) invert(1); } 
 
     /* * About Section */  
