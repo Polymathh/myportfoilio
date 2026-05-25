@@ -58,5 +58,67 @@
                 {% endfor %}
             </div>
         </main>
+
+        <!-- Your existing JavaScript — keep type as default -->
+    <script>
+        const humbuger = document.getElementById("humbuger");
+        const navLinks = document.getElementById("nav-links");
+    
+        humbuger.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+        });
+    
+        document.querySelectorAll("#nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("show");
+        });
+        });
+
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const projectCards = document.querySelectorAll(".project-card");
+
+        filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const filter = btn.getAttribute("data-filter");
+
+            projectCards.forEach(card => {
+            if (filter === "all" || card.dataset.category === filter) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+            });
+        });
+        });
+    </script>
+
+    <!-- Schema markup — completely separate tag -->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Moses Wambugu",
+    "alternateName": "Wambugu Moses",
+    "url": "https://wambuguai.website",
+    "image": "https://wambuguai.website/static/logo/wambugu1.png",
+    "jobTitle": "Agentic AI Systems Builder",
+    "description": "AI Engineer and educator from Nairobi, Kenya. Building agentic AI systems and teaching Africa to use AI while empowering Africans to Innovate, Build & Thrive",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Nairobi",
+        "addressCountry": "KE"
+    },
+    "sameAs": [
+        "https://www.linkedin.com/in/wambugumoses",
+        "https://www.tiktok.com/@wambugu_ai",
+        "https://github.com/Polymathh",
+        "https://www.instagram.com/wambugu_ai",
+        "https://www.facebook.com/profile.php?id=61575331600247"
+    ]
+    }
+    </script>
     </body>
 </html>
