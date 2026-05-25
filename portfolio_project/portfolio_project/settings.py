@@ -28,6 +28,10 @@ SECRET_KEY = 'django-insecure-@s*0s0@td@2_%_#am8zfv7fm_15rlg(vea2y&ni-!^w*aq&u*-
 DEBUG = True
 
 ALLOWED_HOSTS = ["*", ".vercel.app", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://wambuguai.website",
+    "https://www.wambuguai.website",
+]
 
 
 # Application definition
