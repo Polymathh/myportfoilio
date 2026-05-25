@@ -1,0 +1,38 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Blog Posts | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Blog</p>
+        <h1>Blog Posts</h1>
+    </div>
+    <a href="{% url 'custom_admin_post_add' %}" class="admin-button">Add Post</a>
+</header>
+
+<section class="admin-table">
+    {% for post in posts %}
+        <div class="admin-table-row">
+            <div>
+                <strong>{{ post.title }}</strong>
+                <p>{{ post.status }} · {{ post.updated_at|date:"M d, Y" }}</p>
+            </div>
+            <div class="admin-actions">
+                <form method="post" action="{% url 'custom_admin_post_move' post.pk 'up' %}">
+                    {% csrf_token %}
+                    <button type="submit">Move Up</button>
+                </form>
+                <form method="post" action="{% url 'custom_admin_post_move' post.pk 'down' %}">
+                    {% csrf_token %}
+                    <button type="submit">Move Down</button>
+                </form>
+                <a href="{% url 'custom_admin_post_edit' post.pk %}">Edit</a>
+                <a href="{% url 'custom_admin_post_delete' post.pk %}" class="admin-danger-link">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No blog posts yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

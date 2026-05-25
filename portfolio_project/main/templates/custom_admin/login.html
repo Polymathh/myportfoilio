@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Login</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body class="admin-login-body">
+        <main class="admin-login-card">
+            <h1>Portfolio Admin</h1>
+            <p>Sign in to update your portfolio, blog, and SEO.</p>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="admin-error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label>
+                    Username
+                    <input type="text" name="username" class="admin-input" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" name="password" class="admin-input" required>
+                </label>
+                <button type="submit" class="admin-button">Login</button>
+            </form>
+        </main>
+    </body>
+</html>

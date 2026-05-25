@@ -1,0 +1,16 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}{{ title }} | Portfolio Admin{% endblock %}
+
+{% block content %}
+<section class="admin-confirm">
+    <p class="admin-kicker">Confirm delete</p>
+    <h1>{{ title }}</h1>
+    <p>Are you sure you want to delete <strong>{{ object_name }}</strong>?</p>
+    <form method="post" class="admin-confirm-actions">
+        {% csrf_token %}
+        <button type="submit" class="admin-danger-button">Delete</button>
+        <a href="{% url cancel_url %}" class="admin-button">Cancel</a>
+    </form>
+</section>
+{% endblock %}

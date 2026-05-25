@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Portfolio Admin{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body class="admin-body">
+        <aside class="admin-sidebar">
+            <a href="{% url 'custom_admin_dashboard' %}" class="admin-brand">Portfolio Admin</a>
+            <nav class="admin-menu">
+                <a href="{% url 'custom_admin_dashboard' %}">Dashboard</a>
+                <a href="{% url 'custom_admin_profile' %}">Site Profile</a>
+                <a href="{% url 'custom_admin_seo' %}">SEO Settings</a>
+                <a href="{% url 'custom_admin_projects' %}">Projects</a>
+                <a href="{% url 'custom_admin_posts' %}">Blog Posts</a>
+                <a href="{% url 'custom_admin_contacts' %}">Messages</a>
+                <a href="{% url 'home' %}">View Site</a>
+            </nav>
+            <a href="{% url 'custom_admin_logout' %}" class="admin-logout">Logout</a>
+        </aside>
+        <main class="admin-main">
+            {% if messages %}
+                <div class="admin-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

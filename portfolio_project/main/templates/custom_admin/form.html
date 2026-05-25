@@ -1,0 +1,25 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}{{ title }} | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Edit content</p>
+        <h1>{{ title }}</h1>
+    </div>
+</header>
+
+<form method="post" enctype="multipart/form-data" class="admin-form">
+    {% csrf_token %}
+    {% for field in form %}
+        <label>
+            {{ field.label }}
+            {{ field }}
+            {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}<small class="admin-error">{{ error }}</small>{% endfor %}
+        </label>
+    {% endfor %}
+    <button type="submit" class="admin-button">Save Changes</button>
+</form>
+{% endblock %}

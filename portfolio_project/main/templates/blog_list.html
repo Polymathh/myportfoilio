@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ page_title }}</title>
+        <meta name="description" content="{{ page_description }}">
+        <meta name="keywords" content="{{ seo.keywords }}">
+        <meta name="author" content="{{ profile.name }}">
+        {% load static %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <nav>
+            <div class="logo">
+                <img src="{% static 'logo/wambugu.png' %}" alt="logo">
+            </div>
+            <!-- Humbuger menu -->
+             <div class="humbuger"  id="humbuger" onclick="toggleMenu()">
+                ☰
+             </div>
+            <ul id="nav-links">
+                <li><a href="{% url 'home' %}#home">Home</a></li>
+                <li><a href="{% url 'home' %}#about">About</a></li>
+                <li><a href="{% url 'home' %}#projects">Projects</a></li>
+                <li><a href="{% url 'home' %}#contact">Contact</a></li>
+                <li><a href="{% url 'blog_list' %}">Blog</a></li>
+            </ul>
+         </nav>
+
+        <main class="blog-page">
+            <header class="blog-header">
+                <h1>AI, Agents, and Building in Public</h1>
+                <p>Notes from {{ profile.name }} on AI agents, agentic systems, software engineering, and practical digital products.</p>
+            </header>
+
+            <div class="blog-grid">
+                {% for post in posts %}
+                    <article class="blog-card">
+                        {% if post.cover_image %}
+                            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+                        {% endif %}
+                        <div>
+                            <p class="blog-date">{{ post.published_at|date:"M d, Y" }}</p>
+                            <h2>{{ post.title }}</h2>
+                            <p>{{ post.excerpt }}</p>
+                            <a href="{{ post.get_absolute_url }}" class="btn">Read Article</a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p>No blog posts published yet.</p>
+                {% endfor %}
+            </div>
+        </main>
+    </body>
+</html>

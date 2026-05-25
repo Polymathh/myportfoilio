@@ -1,0 +1,52 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Dashboard | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Welcome back</p>
+        <h1>Dashboard</h1>
+    </div>
+    <a href="{% url 'custom_admin_post_add' %}" class="admin-button">New Blog Post</a>
+</header>
+
+<section class="admin-stats">
+    <article><span>{{ project_count }}</span><p>Projects</p></article>
+    <article><span>{{ post_count }}</span><p>Blog posts</p></article>
+    <article><span>{{ published_count }}</span><p>Published</p></article>
+    <article><span>{{ contact_count }}</span><p>Messages</p></article>
+</section>
+
+<section class="admin-panels">
+    <div class="admin-panel">
+        <h2>Recent Messages</h2>
+        {% for contact in recent_contacts %}
+            <div class="admin-row">
+                <div>
+                    <strong>{{ contact.name }}</strong>
+                    <p>{{ contact.subject }}</p>
+                </div>
+                <span>{{ contact.created_at|date:"M d" }}</span>
+            </div>
+        {% empty %}
+            <p>No messages yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="admin-panel">
+        <h2>Recent Posts</h2>
+        {% for post in recent_posts %}
+            <div class="admin-row">
+                <div>
+                    <strong>{{ post.title }}</strong>
+                    <p>{{ post.status }}</p>
+                </div>
+                <a href="{% url 'custom_admin_post_edit' post.pk %}">Edit</a>
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

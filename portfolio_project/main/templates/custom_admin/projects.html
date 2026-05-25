@@ -1,0 +1,38 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Projects | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Portfolio</p>
+        <h1>Projects</h1>
+    </div>
+    <a href="{% url 'custom_admin_project_add' %}" class="admin-button">Add Project</a>
+</header>
+
+<section class="admin-table">
+    {% for project in projects %}
+        <div class="admin-table-row">
+            <div>
+                <strong>{{ project.title }}</strong>
+                <p>{{ project.get_category_display }}</p>
+            </div>
+            <div class="admin-actions">
+                <form method="post" action="{% url 'custom_admin_project_move' project.pk 'up' %}">
+                    {% csrf_token %}
+                    <button type="submit">Move Up</button>
+                </form>
+                <form method="post" action="{% url 'custom_admin_project_move' project.pk 'down' %}">
+                    {% csrf_token %}
+                    <button type="submit">Move Down</button>
+                </form>
+                <a href="{% url 'custom_admin_project_edit' project.pk %}">Edit</a>
+                <a href="{% url 'custom_admin_project_delete' project.pk %}" class="admin-danger-link">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No projects yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

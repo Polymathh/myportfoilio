@@ -1,0 +1,30 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Messages | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Inbox</p>
+        <h1>Messages</h1>
+    </div>
+</header>
+
+<section class="admin-table">
+    {% for contact in contacts %}
+        <article class="admin-message-card">
+            <div class="admin-table-row">
+                <div>
+                    <strong>{{ contact.name }}</strong>
+                    <p>{{ contact.email }}{% if contact.phone %} · {{ contact.phone }}{% endif %}</p>
+                </div>
+                <span>{{ contact.created_at|date:"M d, Y H:i" }}</span>
+            </div>
+            <h2>{{ contact.subject }}</h2>
+            <p>{{ contact.message }}</p>
+        </article>
+    {% empty %}
+        <p>No messages yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}
