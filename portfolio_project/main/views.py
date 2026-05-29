@@ -11,6 +11,32 @@ from .forms import BlogPostForm, ContactForm, ProjectForm, SEOSettingsForm, Site
 from .models import BlogPost, Contact, Project, SEOSettings, SiteProfile
 
 
+COURSES = {
+    "vibe-coding": {
+        "name": "Weekend Vibe Code",
+        "checkout_course": "Course Vibe Coding Bootcamp",
+        "checkout_title": "Vibe Coding",
+        "summary": "Build a real working app from scratch using AI tools, no coding background needed whatsoever.",
+        "duration": "3 days . Live on Google Meet",
+        "card_duration": "3 Day course",
+        "format": "Complete beginners welcome",
+        "price": 4500,
+        "price_display": "4,500",
+    },
+    "ai-automation": {
+        "name": "AI Automation Course",
+        "checkout_course": "AI Automation with Bootcamp",
+        "checkout_title": "Automation",
+        "summary": "Master make.com, build real automation workflows, and save hours every week starting from absolute zero.",
+        "duration": "5 days . Live on Google Meet",
+        "card_duration": "5 Day course",
+        "format": "Complete beginners welcome",
+        "price": 6500,
+        "price_display": "6,500",
+    },
+}
+
+
 def get_site_profile():
     return SiteProfile.objects.first() or SiteProfile()
 
@@ -22,7 +48,30 @@ def get_seo_settings():
 def staff_required(view_func):
     return user_passes_test(lambda user: user.is_staff, login_url="custom_admin_login")(view_func)
 
-def home(request):
+def courses_home(request):
+    return render(request, "courses.html", {
+        "courses": COURSES,
+        "profile": get_site_profile(),
+        "whatsapp_url": "https://wa.me/254704141329",
+    })
+
+
+def course_checkout(request, course_slug):
+    course = COURSES.get(course_slug)
+    if course is None:
+        return redirect("courses_home")
+
+    if request.method == "POST":
+        messages.info(request, "M-Pesa checkout is ready for Daraja credentials. The payment request was not sent yet.")
+
+    return render(request, "course_checkout.html", {
+        "course": course,
+        "course_slug": course_slug,
+        "profile": get_site_profile(),
+    })
+
+
+def portfolio_home(request):
     categories = Project.CATEGORY_CHOICES
     selected_category = request.GET.get("category", "all")
     if selected_category == "all":
@@ -58,7 +107,7 @@ def home(request):
             )
 
             messages.success(request, "Thanks! Your message has been sent.")
-            return redirect("home")
+            return redirect("portfolio_home")
         else:
             messages.error(request, "Please fix the errors below.")
 
@@ -111,6 +160,7 @@ def sitemap_xml(request):
     posts = BlogPost.objects.filter(status="published")
     urls = [
         request.build_absolute_uri("/"),
+        request.build_absolute_uri("/portfolio/"),
         request.build_absolute_uri("/blog/"),
     ]
     urls.extend(request.build_absolute_uri(post.get_absolute_url()) for post in posts)

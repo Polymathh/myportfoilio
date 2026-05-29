@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wambugu Moses Courses</title>
+    <meta name="description" content="Beginner-friendly live courses in vibe coding and AI automation by Wambugu Moses.">
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="courses-body">
+    <nav class="courses-nav">
+        <a href="#home" class="courses-logo"><img src="{% static 'logo/wambugu.png' %}" alt="Wambugu Moses"></a>
+        <button class="courses-menu" type="button" aria-label="Open navigation">Menu</button>
+        <ul class="courses-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#faqs">FAQs</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="courses-hero" id="home">
+            <div>
+                <h1>Are you ready<br>to <span>BUILD</span></h1>
+                <p>A beginner's guide to building with AI. No coding experience needed, no technical background required. Just you, your phone or laptop, and a willingness to learn. I'll teach you everything else live step by step.</p>
+                <div class="courses-stats">
+                    <strong>0</strong><span>Experience needed</span>
+                    <strong>2</strong><span>Live Courses</span>
+                </div>
+            </div>
+            <div class="course-cards">
+                {% for slug, course in courses.items %}
+                <article class="course-card">
+                    <h2>{{ course.name }}</h2>
+                    <strong>Ksh. {{ course.price_display }}</strong>
+                    <p>{{ course.summary }}</p>
+                    <ul>
+                        <li>{{ course.card_duration }}</li>
+                        <li>Online via Google Meet</li>
+                        <li>Curated mainly for Beginners</li>
+                    </ul>
+                    <a href="{% url 'course_checkout' slug %}">Enroll Course</a>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="instructor-section">
+            <div>
+                <h2>Meet Your<br><span>Instructor.</span></h2>
+                <h3>Wambugu Moses.</h3>
+                <p><strong>Agentic Systems Developer | Founder | Software engineer.</strong></p>
+                <p>I'm Wambugu Moses, a software developer and AI builder based in Nairobi, Kenya. I am also a Founder at PostVira and a CS student. I teach AI and automation in plain language so beginners can understand, build, and create real things.</p>
+            </div>
+            <img src="{% static 'images/courses/instructor.png' %}" alt="Wambugu Moses instructor portrait">
+        </section>
+
+        <section class="course-about" id="about">
+            <h2>About The<br><span>Weekend Vibe Code.</span></h2>
+            <div class="course-about-grid">
+                <img src="{% static 'images/courses/weekend-vibecode.png' %}" alt="Weekend Vibe Code course">
+                <div>
+                    <p>Weekend Vibe Code is a live beginner-friendly program designed to help you build real websites, apps, and AI-powered projects from scratch. No boring theory. No complicated setup. Just practical live sessions where you learn modern AI development workflows step by step alongside other builders.</p>
+                    <p>These are live practical sessions designed to help complete beginners learn how to build real apps and websites from scratch using modern AI tools.</p>
+                    <p>By the end of the course, you'll know how to:</p>
+                    <ul>
+                        <li>Build websites using AI</li>
+                        <li>Deploy projects online</li>
+                        <li>Turn your ideas into real products</li>
+                    </ul>
+                    <a href="{% url 'course_checkout' 'vibe-coding' %}">Join The Weekend VibeCode</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-about automation-about">
+            <h2>About The<br><span>AI Automation Course.</span></h2>
+            <div class="course-about-grid reverse">
+                <div>
+                    <p>Learn how to build powerful AI automations that save time, reduce repetitive work, and help businesses operate faster. This live hands-on course teaches you tools like Make.com and modern AI systems so you can create real automation workflows from scratch even as a beginner.</p>
+                    <p>You'll discover how businesses and creators are using AI automations to send emails automatically, manage leads, reply to customers, generate content, organize data, and connect different apps together without manual work.</p>
+                    <p>By the end of the program, you'll understand how to:</p>
+                    <ul>
+                        <li>Design smart AI workflows</li>
+                        <li>Connect APIs and external services</li>
+                        <li>Build AI agents and assistants</li>
+                        <li>Create systems that save hours of work every week</li>
+                        <li>Automate repetitive business tasks efficiently</li>
+                    </ul>
+                    <a href="{% url 'course_checkout' 'ai-automation' %}">Start AI Automation Course</a>
+                </div>
+                <img src="{% static 'images/courses/ai-automation.png' %}" alt="AI Automation course">
+            </div>
+        </section>
+
+        <section class="faq-section" id="faqs">
+            <h2>Frequently<br><span>Asked Quizes</span></h2>
+            <article><h3>Do I need any experience to join?</h3><p>Zero. These courses are built specifically for complete beginners.</p></article>
+            <article><h3>What do I need, phone or laptop?</h3><p>A laptop is recommended for the best experience, but a phone with a good internet connection works too.</p></article>
+            <article><h3>Will sessions be recorded?</h3><p>Yes. All live sessions are recorded and shared with enrolled students.</p></article>
+            <article><h3>Can I make money from any of this courses?</h3><p>Yes. You can use the skills to build websites and automations for clients, freelance, or create your own projects.</p></article>
+        </section>
+
+        <section class="ready-section">
+            <h2>Ready to Start<br><span>Learning</span></h2>
+            <p>Join the class now. Zero experience needed. Learn from anywhere.</p>
+            <div>
+                <a href="{% url 'course_checkout' 'vibe-coding' %}">Enroll Vibe Coding -> Ksh 4500</a>
+                <a href="{% url 'course_checkout' 'ai-automation' %}">Enroll AI Automation -> Ksh 6,500</a>
+            </div>
+        </section>
+
+        <section class="course-contact" id="contact">
+            <h2>Interested but unsure?</h2>
+            <p>Talk to your instructor directly on whatsapp</p>
+            <a href="{{ whatsapp_url }}" target="_blank" rel="noopener">WhatsApp Moses</a>
+        </section>
+    </main>
+
+    <script>
+        const courseMenu = document.querySelector(".courses-menu");
+        const courseLinks = document.querySelector(".courses-links");
+        courseMenu.addEventListener("click", () => courseLinks.classList.toggle("open"));
+        courseLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => courseLinks.classList.remove("open")));
+    </script>
+</body>
+</html>

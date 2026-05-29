@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start {{ course.checkout_title }} | Wambugu Moses</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="checkout-body">
+    <main class="checkout-page">
+        <section class="checkout-summary">
+            <a href="{% url 'courses_home' %}" class="checkout-logo"><img src="{% static 'logo/wambugu.png' %}" alt="Wambugu Moses"></a>
+            <div>
+                <h1>You are about to start <span>{{ course.checkout_title }}</span></h1>
+                <p>Fill in your details to complete your payment. M-Pesa will prompt you on your phone. Just enter your PIN and you're in.</p>
+                <dl>
+                    <dt>Course</dt><dd>{{ course.checkout_course }}</dd>
+                    <dt>Duration</dt><dd>{{ course.duration }}</dd>
+                    <dt>Format</dt><dd>{{ course.format }}</dd>
+                    <dt>Total</dt><dd>Ksh {{ course.price_display }}</dd>
+                </dl>
+            </div>
+        </section>
+        <section class="checkout-form-panel">
+            {% if messages %}
+                {% for message in messages %}<p class="checkout-message">{{ message }}</p>{% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="checkout-row">
+                    <label>First Name<input type="text" name="first_name" required></label>
+                    <label>Second Name<input type="text" name="second_name" required></label>
+                </div>
+                <label>Email Address<input type="email" name="email" required></label>
+                <label>Phone Number<input type="tel" name="phone" placeholder="254704141329" required></label>
+                <label>Amount<input type="text" name="amount" value="Ksh. {{ course.price }}" readonly></label>
+                <button type="submit">Pay Now</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
