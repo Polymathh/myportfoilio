@@ -26,6 +26,7 @@
                     <div class="payment-success-tick" aria-hidden="true">&#10003;</div>
                     <h1>Payment successful</h1>
                     <p>Your payment has been confirmed. You are enrolled for {{ payment.course_name }}.</p>
+                    <p>Check {{ payment.email }} for the class WhatsApp group link and joining details.</p>
                     {% if payment.mpesa_receipt_number %}
                         <small>Receipt: {{ payment.mpesa_receipt_number }}</small>
                     {% endif %}

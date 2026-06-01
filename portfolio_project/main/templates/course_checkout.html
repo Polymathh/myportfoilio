@@ -27,9 +27,9 @@
             </div>
         </section>
         <section class="checkout-form-panel">
-            {% if messages %}
+            <!-- {% if messages %}
                 {% for message in messages %}<p class="checkout-message">{{ message }}</p>{% endfor %}
-            {% endif %}
+            {% endif %} -->
             <form method="post">
                 {% csrf_token %}
                 <div class="checkout-row">
