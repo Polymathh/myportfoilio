@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="margin:0; padding:0; background:#f3f6f4; font-family:Arial, sans-serif; color:#202420;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3f6f4; padding:28px 12px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px; background:#ffffff; border:1px solid #dfe7e1; border-radius:8px; overflow:hidden;">
+                    <tr>
+                        <td style="padding:24px 28px; background:#0d100e; color:#ffffff;">
+                            <p style="margin:0 0 6px; color:#8fd59d; font-size:12px; font-weight:bold; text-transform:uppercase;">Enrollment Confirmed</p>
+                            <h1 style="margin:0; font-size:24px; line-height:1.25;">Welcome to {{ course_name }}</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:26px 28px; line-height:1.65; font-size:15px;">
+                            <p style="margin:0 0 14px;">Dear {{ student_name }},</p>
+                            <p style="margin:0 0 14px;">Congratulations! You have been successfully enrolled in <strong>{{ course_name }}</strong>.</p>
+                            <p style="margin:0 0 18px;">Please join your class WhatsApp group for updates, session links, recordings, and announcements.</p>
+                            <p style="margin:0 0 20px;">
+                                <a href="{{ whatsapp_url }}" style="display:inline-block; padding:12px 18px; background:#25D366; color:#ffffff; text-decoration:none; border-radius:6px; font-weight:bold;">Join WhatsApp Group</a>
+                            </p>
+                            <p style="margin:0 0 18px; color:#5f6a62;">If the button does not work, copy and paste this link into your browser:<br>
+                                <a href="{{ whatsapp_url }}" style="color:#1f7a3a;">{{ whatsapp_url }}</a>
+                            </p>
+                            <p style="margin:0;">Best regards,<br>{{ instructor_name }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

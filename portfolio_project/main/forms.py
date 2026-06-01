@@ -1,5 +1,5 @@
 from django import forms
-from .models import BlogPost, Contact, Project, SEOSettings, SiteProfile
+from .models import BlogPost, Contact, CourseCohort, Project, SEOSettings, SiteProfile
 
 class ContactForm(forms.ModelForm):
     class Meta:
@@ -66,4 +66,18 @@ class BlogPostForm(AdminFormMixin, forms.ModelForm):
             "content": forms.Textarea(attrs={"rows": 12}),
             "seo_description": forms.Textarea(attrs={"rows": 3}),
             "published_at": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+        }
+
+
+class CourseCohortForm(AdminFormMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        course_choices = kwargs.pop("course_choices", ())
+        super().__init__(*args, **kwargs)
+        self.fields["course_slug"].widget = forms.Select(choices=course_choices, attrs={"class": "admin-input"})
+
+    class Meta:
+        model = CourseCohort
+        fields = ["course_slug", "title", "starts_on", "whatsapp_group_url", "is_active"]
+        widgets = {
+            "starts_on": forms.DateInput(attrs={"type": "date"}),
         }

@@ -1,0 +1,38 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Course Weeks | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Courses</p>
+        <h1>Course Weeks</h1>
+        <p class="admin-header-copy">Add a WhatsApp group link for each course week. New enrollments use the latest active week for that course.</p>
+    </div>
+    <a href="{% url 'custom_admin_cohort_add' %}" class="admin-button">Add Course Week</a>
+</header>
+
+<section class="admin-table">
+    {% for cohort in cohorts %}
+        <div class="admin-table-row">
+            <div>
+                <strong>{{ cohort.title }}</strong>
+                <p>{{ cohort.course_slug }} - starts {{ cohort.starts_on|date:"M d, Y" }}</p>
+                <small>{{ cohort.whatsapp_group_url }}</small>
+            </div>
+            <div>
+                <span class="admin-status {% if cohort.is_active %}admin-status-paid{% else %}admin-status-failed{% endif %}">
+                    {% if cohort.is_active %}Active{% else %}Inactive{% endif %}
+                </span>
+                <p>{{ cohort.payments.count }} enrollment{{ cohort.payments.count|pluralize }}</p>
+            </div>
+            <div class="admin-actions">
+                <a href="{% url 'custom_admin_cohort_edit' cohort.pk %}">Edit</a>
+                <a href="{% url 'custom_admin_cohort_delete' cohort.pk %}" class="admin-danger-link">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No course weeks yet. Add one before the next enrollment so students receive the right WhatsApp link.</p>
+    {% endfor %}
+</section>
+{% endblock %}

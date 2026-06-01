@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Status | Wambugu Moses</title>
+    {% if payment.status == "processing" %}
+        <meta http-equiv="refresh" content="{% if show_phone_prompt %}4{% else %}6{% endif %}">
+    {% endif %}
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="checkout-body payment-body">
+    <main class="payment-page">
+        <section class="payment-shell">
+            <article class="mpesa-card payment-status-card">
+                <div class="mpesa-card-top">
+                    <span>{{ payment.email }}</span>
+                    <strong>Pay KES {{ payment.amount }}</strong>
+                </div>
+                {% if payment.status == "paid" %}
+                    <div class="payment-success-tick" aria-hidden="true">&#10003;</div>
+                    <h1>Payment successful</h1>
+                    <p>Your payment has been confirmed. You are enrolled for {{ payment.course_name }}.</p>
+                    {% if payment.mpesa_receipt_number %}
+                        <small>Receipt: {{ payment.mpesa_receipt_number }}</small>
+                    {% endif %}
+                    <a href="{% url 'courses_home' %}" class="payment-complete-button">Back to courses</a>
+                {% elif payment.status == "failed" %}
+                    <h1>Payment failed</h1>
+                    <p>{{ payment.result_description|default:"The payment was not completed. Please try again." }}</p>
+                    <a href="{% url 'course_payment' payment.id %}" class="payment-complete-button">Try again</a>
+                {% elif show_phone_prompt %}
+                    <h1>Check your phone</h1>
+                    <p class="payment-loading-copy">Enter your M-Pesa PIN to complete the payment.</p>
+                    <small>Confirmation will continue automatically.</small>
+                {% else %}
+                    <div class="payment-loader" aria-hidden="true"></div>
+                    <h1>Confirming payment</h1>
+                    <p class="payment-loading-copy">Waiting for M-Pesa confirmation</p>
+                    <small>{{ payment.result_description|default:"Status: Processing" }}</small>
+                    <a href="{% url 'course_payment_status' payment.id %}" class="payment-complete-button">Refresh status</a>
+                    <a href="{% url 'course_payment' payment.id %}" class="mpesa-help-link">Back to M-PESA Express</a>
+                {% endif %}
+            </article>
+        </section>
+    </main>
+</body>
+</html>

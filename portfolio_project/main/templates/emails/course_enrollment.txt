@@ -1,0 +1,9 @@
+Dear {{ student_name }},
+
+Congratulations! You have been successfully enrolled in {{ course_name }}.
+
+Please join your class WhatsApp group for updates, session links, recordings, and announcements:
+{{ whatsapp_url }}
+
+Best regards,
+{{ instructor_name }}

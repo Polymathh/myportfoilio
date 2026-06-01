@@ -9,14 +9,21 @@
     </head>
     <body class="admin-body">
         <aside class="admin-sidebar">
-            <a href="{% url 'custom_admin_dashboard' %}" class="admin-brand">Portfolio Admin</a>
+            <a href="{% url 'custom_admin_dashboard' %}" class="admin-brand">
+                <span>Wambugu</span>
+                <strong>Portfolio Admin</strong>
+            </a>
             <nav class="admin-menu">
+                <p>Workspace</p>
                 <a href="{% url 'custom_admin_dashboard' %}">Dashboard</a>
+                <a href="{% url 'custom_admin_payments' %}">Payments</a>
+                <a href="{% url 'custom_admin_cohorts' %}">Course Weeks</a>
+                <a href="{% url 'custom_admin_contacts' %}">Messages</a>
+                <p>Content</p>
                 <a href="{% url 'custom_admin_profile' %}">Site Profile</a>
                 <a href="{% url 'custom_admin_seo' %}">SEO Settings</a>
                 <a href="{% url 'custom_admin_projects' %}">Projects</a>
                 <a href="{% url 'custom_admin_posts' %}">Blog Posts</a>
-                <a href="{% url 'custom_admin_contacts' %}">Messages</a>
                 <a href="{% url 'home' %}">View Site</a>
             </nav>
             <a href="{% url 'custom_admin_logout' %}" class="admin-logout">Logout</a>

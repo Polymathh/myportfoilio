@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay {{ payment.course_name }} | Wambugu Moses</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="checkout-body payment-body">
+    <main class="payment-page">
+        <section class="payment-shell">
+            {% if messages %}
+                {% for message in messages %}<p class="checkout-message">{{ message }}</p>{% endfor %}
+            {% endif %}
+            <form method="post" class="mpesa-card" id="mpesa-express-card">
+                {% csrf_token %}
+                <div class="mpesa-card-top">
+                    <span>{{ payment.email }}</span>
+                    <strong>Pay KES {{ payment.amount }}</strong>
+                </div>
+                <div class="mpesa-logo">M-PESA</div>
+                <p>Please enter your mobile money number<br>to begin this payment</p>
+                <label class="mpesa-phone-field">
+                    <input type="tel" name="mpesa_phone" placeholder="070 000 0000" required>
+                </label>
+                <button type="submit">Pay KES {{ payment.amount }}</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

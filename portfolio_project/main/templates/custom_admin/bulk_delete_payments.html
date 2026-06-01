@@ -1,0 +1,32 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Delete Payment Records | Portfolio Admin{% endblock %}
+
+{% block content %}
+<section class="admin-confirm">
+    <p class="admin-kicker">Bulk delete</p>
+    <h1>Delete {{ payments|length }} payment record(s)?</h1>
+    <p>This removes the selected course payment and enrollment records from the admin.</p>
+
+    <div class="admin-delete-list">
+        {% for payment in payments %}
+            <div class="admin-row">
+                <div>
+                    <strong>{{ payment.account_reference }}</strong>
+                    <p>{{ payment.first_name }} {{ payment.second_name }} · {{ payment.get_status_display }} · KES {{ payment.amount }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="{% url 'custom_admin_payments_bulk_delete' %}" class="admin-confirm-actions">
+        {% csrf_token %}
+        <input type="hidden" name="confirm" value="yes">
+        {% for payment_id in payment_ids %}
+            <input type="hidden" name="payment_ids" value="{{ payment_id }}">
+        {% endfor %}
+        <button type="submit" class="admin-danger-button">Delete Selected</button>
+        <a href="{% url 'custom_admin_payments' %}" class="admin-button">Cancel</a>
+    </form>
+</section>
+{% endblock %}

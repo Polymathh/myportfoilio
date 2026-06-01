@@ -5,22 +5,90 @@
 {% block content %}
 <header class="admin-header">
     <div>
-        <p class="admin-kicker">Welcome back</p>
+        <p class="admin-kicker">Command center</p>
         <h1>Dashboard</h1>
+        <p class="admin-header-copy">Monitor enrollments, messages, publishing, and payment health from one place.</p>
     </div>
-    <a href="{% url 'custom_admin_post_add' %}" class="admin-button">New Blog Post</a>
+    <div class="admin-header-actions">
+        <a href="{% url 'custom_admin_payments' %}" class="admin-button">Review Payments</a>
+        <a href="{% url 'custom_admin_cohort_add' %}" class="admin-secondary-button">Add Course Week</a>
+        <a href="{% url 'custom_admin_post_add' %}" class="admin-secondary-button">New Blog Post</a>
+    </div>
 </header>
 
 <section class="admin-stats">
-    <article><span>{{ project_count }}</span><p>Projects</p></article>
-    <article><span>{{ post_count }}</span><p>Blog posts</p></article>
-    <article><span>{{ published_count }}</span><p>Published</p></article>
-    <article><span>{{ contact_count }}</span><p>Messages</p></article>
+    <article><p>Paid Enrollments</p><span>{{ payment_summary.paid|default:0 }}</span><small>{{ payment_summary.processing|default:0 }} processing</small></article>
+    <article><p>Revenue</p><span>KES {{ payment_summary.revenue|default:0 }}</span><small>{{ payment_summary.total|default:0 }} total payments</small></article>
+    <article><p>Messages</p><span>{{ contact_count }}</span><small>Recent inquiries</small></article>
+    <article><p>Published Content</p><span>{{ published_count }}</span><small>{{ post_count }} total posts</small></article>
+    <article><p>Projects</p><span>{{ project_count }}</span><small>Portfolio items</small></article>
 </section>
 
-<section class="admin-panels">
+<section class="admin-dashboard-grid">
+    <div class="admin-panel admin-panel-wide">
+        <div class="admin-panel-heading">
+            <h2>Course Performance</h2>
+            <a href="{% url 'custom_admin_payments' %}">Open payments</a>
+        </div>
+        <div class="admin-dashboard-course-cards">
+            {% for course in course_counts %}
+                <article class="admin-course-card">
+                    <div class="admin-course-card-head">
+                        <strong>{{ course.name }}</strong>
+                        <a href="{% url 'custom_admin_payments' %}?course={{ course.slug }}">View</a>
+                    </div>
+                    <div class="admin-course-card-grid">
+                        <div><span>{{ course.total }}</span><p>Total</p></div>
+                        <div><span>{{ course.paid }}</span><p>Paid</p></div>
+                        <div><span>{{ course.processing }}</span><p>Processing</p></div>
+                        <div><span>KES {{ course.revenue }}</span><p>Revenue</p></div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+
     <div class="admin-panel">
-        <h2>Recent Messages</h2>
+        <div class="admin-panel-heading">
+            <h2>Payment Activity</h2>
+            <a href="{% url 'custom_admin_payments' %}">View all</a>
+        </div>
+        {% for payment in recent_payments %}
+            <div class="admin-row">
+                <div>
+                    <strong>{{ payment.first_name }} {{ payment.second_name }}</strong>
+                    <p>{{ payment.get_status_display }} - KES {{ payment.amount }}</p>
+                </div>
+                <a href="{% url 'custom_admin_payments' %}?q={{ payment.account_reference }}">View</a>
+            </div>
+        {% empty %}
+            <p>No course payments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="admin-panel">
+        <div class="admin-panel-heading">
+            <h2>Course Weeks</h2>
+            <a href="{% url 'custom_admin_cohorts' %}">Manage</a>
+        </div>
+        {% for cohort in recent_cohorts %}
+            <div class="admin-row">
+                <div>
+                    <strong>{{ cohort.title }}</strong>
+                    <p>{{ cohort.course_slug }} - {{ cohort.starts_on|date:"M d" }}</p>
+                </div>
+                <a href="{% url 'custom_admin_cohort_edit' cohort.pk %}">Edit</a>
+            </div>
+        {% empty %}
+            <p>No course weeks yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="admin-panel">
+        <div class="admin-panel-heading">
+            <h2>Recent Messages</h2>
+            <a href="{% url 'custom_admin_contacts' %}">Inbox</a>
+        </div>
         {% for contact in recent_contacts %}
             <div class="admin-row">
                 <div>
@@ -35,7 +103,10 @@
     </div>
 
     <div class="admin-panel">
-        <h2>Recent Posts</h2>
+        <div class="admin-panel-heading">
+            <h2>Recent Posts</h2>
+            <a href="{% url 'custom_admin_posts' %}">Manage</a>
+        </div>
         {% for post in recent_posts %}
             <div class="admin-row">
                 <div>

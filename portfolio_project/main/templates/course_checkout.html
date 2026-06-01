@@ -17,7 +17,7 @@
             <a href="{% url 'courses_home' %}" class="checkout-logo"><img src="{% static 'logo/wambugu.png' %}" alt="Wambugu Moses"></a>
             <div>
                 <h1>You are about to start <span>{{ course.checkout_title }}</span></h1>
-                <p>Fill in your details to complete your payment. M-Pesa will prompt you on your phone. Just enter your PIN and you're in.</p>
+                <p>Confirm your learner details first. On the next page, you will enter the M-Pesa number that should receive the payment prompt.</p>
                 <dl>
                     <dt>Course</dt><dd>{{ course.checkout_course }}</dd>
                     <dt>Duration</dt><dd>{{ course.duration }}</dd>
@@ -37,7 +37,6 @@
                     <label>Second Name<input type="text" name="second_name" required></label>
                 </div>
                 <label>Email Address<input type="email" name="email" required></label>
-                <label>Phone Number<input type="tel" name="phone" placeholder="254704141329" required></label>
                 <label>Amount<input type="text" name="amount" value="Ksh. {{ course.price }}" readonly></label>
                 <button type="submit">Pay Now</button>
             </form>

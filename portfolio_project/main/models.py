@@ -110,6 +110,80 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CourseCohort(models.Model):
+    course_slug = models.SlugField(max_length=80)
+    title = models.CharField(max_length=160, help_text="Example: Week 1 - June 2026")
+    starts_on = models.DateField(default=timezone.localdate)
+    whatsapp_group_url = models.URLField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-starts_on", "-created_at"]
+
+    def __str__(self):
+        return f"{self.title} ({self.course_slug})"
+
+
+class CoursePayment(models.Model):
+    STATUS_PENDING = "pending"
+    STATUS_PROCESSING = "processing"
+    STATUS_PAID = "paid"
+    STATUS_FAILED = "failed"
+    METHOD_STK = "stk"
+    METHOD_TILL = "till"
+
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PROCESSING, "Processing"),
+        (STATUS_PAID, "Paid"),
+        (STATUS_FAILED, "Failed"),
+    ]
+    METHOD_CHOICES = [
+        (METHOD_STK, "STK Push"),
+        (METHOD_TILL, "Till"),
+    ]
+
+    course_slug = models.SlugField(max_length=80)
+    course_name = models.CharField(max_length=160)
+    first_name = models.CharField(max_length=80)
+    second_name = models.CharField(max_length=80)
+    email = models.EmailField()
+    cohort = models.ForeignKey(CourseCohort, blank=True, null=True, on_delete=models.SET_NULL, related_name="payments")
+    phone = models.CharField(max_length=20, blank=True)
+    mpesa_phone = models.CharField(max_length=20, blank=True)
+    amount = models.PositiveIntegerField()
+    payment_method = models.CharField(max_length=20, choices=METHOD_CHOICES, default=METHOD_STK)
+    account_reference = models.CharField(max_length=80, blank=True, db_index=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    checkout_request_id = models.CharField(max_length=120, blank=True, db_index=True)
+    merchant_request_id = models.CharField(max_length=120, blank=True)
+    mpesa_receipt_number = models.CharField(max_length=80, blank=True)
+    transaction_status_request_id = models.CharField(max_length=120, blank=True)
+    result_code = models.CharField(max_length=20, blank=True)
+    result_description = models.TextField(blank=True)
+    callback_payload = models.JSONField(blank=True, null=True)
+    enrollment_email_sent_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def save(self, *args, **kwargs):
+        if self.pk and not self.account_reference:
+            self.account_reference = f"COURSE{self.pk}"
+        super().save(*args, **kwargs)
+        if not self.account_reference:
+            self.account_reference = f"COURSE{self.pk}"
+            super().save(update_fields=["account_reference"])
+
+    def __str__(self):
+        return f"{self.course_name} - {self.phone} - {self.status}"
+
     
 class Contact(models.Model):
     name = models.CharField(max_length=150)

@@ -1,0 +1,139 @@
+{% extends "custom_admin/base.html" %}
+
+{% block title %}Payments | Portfolio Admin{% endblock %}
+
+{% block content %}
+<header class="admin-header">
+    <div>
+        <p class="admin-kicker">Courses</p>
+        <h1>Payments & Enrollments</h1>
+    </div>
+    <a href="{% url 'custom_admin_payments_export' %}?status={{ selected_status }}&course={{ selected_course }}&q={{ query }}" class="admin-button">Export CSV</a>
+</header>
+
+<section class="admin-stats">
+    <article><span>{{ summary.count|default:0 }}</span><p>Records</p></article>
+    <article><span>{{ summary.paid|default:0 }}</span><p>Paid</p></article>
+    <article><span>{{ summary.processing|default:0 }}</span><p>Processing</p></article>
+    <article><span>KES {{ summary.revenue|default:0 }}</span><p>Revenue</p></article>
+</section>
+
+<section class="admin-course-counts">
+    {% for course in course_counts %}
+        <article class="admin-course-card">
+            <div class="admin-course-card-head">
+                <strong>{{ course.name }}</strong>
+                <a href="{% url 'custom_admin_payments' %}?course={{ course.slug }}">Open</a>
+            </div>
+            <div class="admin-course-card-grid">
+                <div><span>{{ course.total }}</span><p>Total</p></div>
+                <div><span>{{ course.paid }}</span><p>Paid</p></div>
+                <div><span>{{ course.processing }}</span><p>Processing</p></div>
+                <div><span>KES {{ course.revenue }}</span><p>Revenue</p></div>
+            </div>
+        </article>
+    {% endfor %}
+</section>
+
+<form method="get" class="admin-filters">
+    <label>
+        Search
+        <input type="search" name="q" value="{{ query }}" class="admin-input" placeholder="Name, email, phone, receipt">
+    </label>
+    <label>
+        Status
+        <select name="status" class="admin-input">
+            <option value="">All statuses</option>
+            {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>
+        Course
+        <select name="course" class="admin-input">
+            <option value="">All courses</option>
+            {% for slug, course in course_choices.items %}
+                <option value="{{ slug }}" {% if selected_course == slug %}selected{% endif %}>{{ course.name }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit" class="admin-button">Apply</button>
+    <a href="{% url 'custom_admin_payments' %}" class="admin-muted-link">Clear</a>
+</form>
+
+<form method="post" action="{% url 'custom_admin_payments_bulk_delete' %}" class="admin-bulk-form" id="bulk-delete-form">
+    {% csrf_token %}
+    <div class="admin-bulk-bar">
+        <label class="admin-check-label">
+            <input type="checkbox" data-select-all-payments>
+            Select all visible
+        </label>
+        <button type="submit" class="admin-danger-button">Delete Selected</button>
+    </div>
+</form>
+
+<section class="admin-table admin-payments-table">
+    {% for payment in payments %}
+        <div class="admin-table-row admin-payment-row">
+            <label class="admin-row-check" aria-label="Select payment {{ payment.account_reference }}">
+                <input type="checkbox" name="payment_ids" value="{{ payment.id }}" form="bulk-delete-form" data-payment-checkbox>
+            </label>
+            <div class="admin-payment-main">
+                <strong>{{ payment.first_name }} {{ payment.second_name }}</strong>
+                <p>{{ payment.course_name }} - {{ payment.email }}</p>
+                <small>{{ payment.account_reference }} - {{ payment.created_at|date:"M d, Y H:i" }}</small>
+                <small>
+                    {% if payment.cohort %}{{ payment.cohort.title }}{% else %}No course week{% endif %}
+                    -
+                    {% if payment.enrollment_email_sent_at %}Email sent {{ payment.enrollment_email_sent_at|date:"M d, Y H:i" }}{% else %}Email not sent{% endif %}
+                </small>
+            </div>
+            <div>
+                <span class="admin-status admin-status-{{ payment.status }}">{{ payment.get_status_display }}</span>
+                <p>KES {{ payment.amount }}</p>
+            </div>
+            <div>
+                <strong>{{ payment.phone|default:payment.mpesa_phone|default:"No phone" }}</strong>
+                <p>{{ payment.mpesa_receipt_number|default:"No receipt" }}</p>
+            </div>
+            <div class="admin-actions admin-payment-actions">
+                {% if payment.status != "paid" %}
+                    <form method="post" action="{% url 'custom_admin_payment_action' payment.pk 'confirm' %}">
+                        {% csrf_token %}
+                        <input type="text" name="receipt" placeholder="Receipt optional" class="admin-mini-input">
+                        <button type="submit">Confirm</button>
+                    </form>
+                {% endif %}
+                {% if payment.status != "failed" %}
+                    <form method="post" action="{% url 'custom_admin_payment_action' payment.pk 'fail' %}">
+                        {% csrf_token %}
+                        <button type="submit">Mark Failed</button>
+                    </form>
+                {% endif %}
+                {% if payment.status == "paid" %}
+                    <form method="post" action="{% url 'custom_admin_payment_action' payment.pk 'send-email' %}">
+                        {% csrf_token %}
+                        <button type="submit">{% if payment.enrollment_email_sent_at %}Resend Email{% else %}Send Email{% endif %}</button>
+                    </form>
+                {% endif %}
+                <a href="{% url 'custom_admin_payment_delete' payment.pk %}" class="admin-danger-link">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No payments match your filters.</p>
+    {% endfor %}
+</section>
+
+<script>
+    const selectAllPayments = document.querySelector("[data-select-all-payments]");
+    const paymentCheckboxes = Array.from(document.querySelectorAll("[data-payment-checkbox]"));
+    if (selectAllPayments) {
+        selectAllPayments.addEventListener("change", () => {
+            paymentCheckboxes.forEach((checkbox) => {
+                checkbox.checked = selectAllPayments.checked;
+            });
+        });
+    }
+</script>
+{% endblock %}
