@@ -2792,3 +2792,255 @@ textarea.admin-input {
   margin: 0;
   border: 0;
 }
+
+/* Tablet layout polish */
+@media (min-width: 769px) and (max-width: 1180px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  nav {
+    padding: 1rem 4%;
+  }
+
+  nav .logo img {
+    height: 112px;
+  }
+
+  nav ul {
+    gap: 1.2rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 5rem 4% 4rem;
+  }
+
+  .about {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+    gap: 28px;
+    padding: 4rem 5% 5rem;
+  }
+
+  .about h2 {
+    padding-bottom: 56px;
+  }
+
+  .about p {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .images {
+    justify-content: center;
+    grid-template-columns: max-content max-content;
+  }
+
+  .left img {
+    width: 210px;
+    height: 270px;
+  }
+
+  .right img {
+    width: 185px;
+    height: 132px;
+  }
+
+  .projects {
+    padding: 4rem 5%;
+  }
+
+  .project-card {
+    width: min(100%, 900px);
+    height: auto;
+    min-height: 300px;
+    align-items: stretch;
+  }
+
+  .project-card img {
+    width: min(42vw, 380px);
+    height: auto;
+    aspect-ratio: 1.55;
+    object-fit: cover;
+  }
+
+  .project-card .btn {
+    width: min(100%, 420px);
+    text-align: center;
+  }
+
+  .contact .container {
+    width: min(100% - 56px, 920px);
+    gap: 28px;
+  }
+
+  .container-left p {
+    margin-top: 72px;
+  }
+
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-body {
+    grid-template-columns: 210px 1fr;
+  }
+
+  .admin-main {
+    padding: 24px;
+    min-width: 0;
+  }
+
+  .admin-dashboard-grid,
+  .admin-filters,
+  .admin-payment-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-payment-actions {
+    justify-content: flex-start;
+  }
+
+  .courses-body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .courses-nav {
+    padding: 12px 4%;
+  }
+
+  .courses-logo img,
+  .checkout-logo img {
+    width: 138px;
+  }
+
+  .courses-links {
+    gap: 18px;
+  }
+
+  .courses-hero,
+  .instructor-section,
+  .course-about,
+  .faq-section,
+  .ready-section,
+  .course-contact {
+    width: min(100% - 56px, 920px);
+  }
+
+  .courses-hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 64px 0 56px;
+  }
+
+  .courses-hero h1,
+  .instructor-section h2,
+  .course-about h2,
+  .faq-section h2 {
+    font-size: clamp(48px, 7vw, 64px);
+  }
+
+  .course-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .course-card {
+    min-height: auto;
+    padding: 24px 22px;
+  }
+
+  .course-card p {
+    margin-top: 24px;
+  }
+
+  .instructor-section,
+  .course-about-grid,
+  .course-about-grid.reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    gap: 36px;
+  }
+
+  .course-about-grid.reverse > div {
+    order: 2;
+  }
+
+  .course-about-grid.reverse > img {
+    order: 1;
+  }
+
+  .instructor-section img,
+  .course-about-grid img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .ready-section div {
+    flex-wrap: wrap;
+  }
+
+  .checkout-body {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .checkout-page {
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    overflow: visible;
+  }
+
+  .checkout-summary,
+  .checkout-form-panel {
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .checkout-summary {
+    padding: 24px 28px;
+  }
+
+  .checkout-summary > div {
+    margin-top: 80px;
+  }
+
+  .checkout-summary h1 {
+    font-size: clamp(42px, 6vw, 58px);
+  }
+
+  .checkout-summary dl {
+    width: 100%;
+    grid-template-columns: 96px 1fr;
+    padding: 18px 20px;
+  }
+
+  .checkout-form-panel {
+    padding: 42px 24px;
+  }
+
+  .checkout-body .checkout-form-panel form:not(.mpesa-card) .checkout-row {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-body .payment-shell {
+    width: min(520px, calc(100vw - 56px));
+  }
+}

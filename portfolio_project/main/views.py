@@ -27,8 +27,8 @@ COURSES = {
         "duration": "3 days . Live on Google Meet",
         "card_duration": "3 Day course",
         "format": "Complete beginners welcome",
-        "price": 1,
-        "price_display": "1",
+        "price": 4500,
+        "price_display": "4500",
     },
     "ai-automation": {
         "name": "AI Automation Course",
@@ -38,14 +38,14 @@ COURSES = {
         "duration": "5 days . Live on Google Meet",
         "card_duration": "5 Day course",
         "format": "Complete beginners welcome",
-        "price": 1,
-        "price_display": "1",
+        "price": 4500,
+        "price_display": "6500",
     },
 }
 
 
 MPESA_STILL_PROCESSING_CODES = {"4999"}
-MPESA_PHONE_PROMPT_SECONDS = 12
+MPESA_PHONE_PROMPT_SECONDS = 10
 
 
 def _course_choices():
@@ -200,8 +200,10 @@ def course_payment(request, payment_id):
             messages.error(request, str(error))
         except MpesaConfigurationError:
             messages.error(request, "M-Pesa Express is not configured yet. Please check the Daraja settings.")
-        except MpesaRequestError:
-            messages.error(request, "Could not start M-Pesa payment. Please try again in a moment.")
+        except MpesaRequestError as error:
+            payment.result_description = str(error)
+            payment.save(update_fields=["result_description", "updated_at"])
+            messages.error(request, f"Could not start M-Pesa payment: {error}")
 
     return render(request, "course_payment.html", {
         "payment": payment,
