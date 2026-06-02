@@ -27,8 +27,8 @@ COURSES = {
         "duration": "3 days . Live on Google Meet",
         "card_duration": "3 Day course",
         "format": "Complete beginners welcome",
-        "price": 1,
-        "price_display": "1",
+        "price": 4500,
+        "price_display": "4500",
     },
     "ai-automation": {
         "name": "AI Automation Course",
@@ -38,8 +38,8 @@ COURSES = {
         "duration": "5 days . Live on Google Meet",
         "card_duration": "5 Day course",
         "format": "Complete beginners welcome",
-        "price": 1,
-        "price_display": "1",
+        "price": 6500,
+        "price_display": "6500",
     },
 }
 
