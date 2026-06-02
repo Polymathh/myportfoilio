@@ -234,13 +234,15 @@ def course_payment_status(request, payment_id):
                 })
             elif result_code and result_code not in MPESA_STILL_PROCESSING_CODES:
                 payment.status = CoursePayment.STATUS_FAILED
-            _save_payment_fields(payment, ["result_code", "result_description", "status", "updated_at"])
+                _save_payment_fields(payment, ["result_code", "result_description", "status", "updated_at"])
+            else:
+                _save_payment_fields(payment, ["result_code", "result_description", "status"])
         except (MpesaConfigurationError, MpesaRequestError) as error:
             if "still under processing" in str(error).lower():
                 payment.result_description = "The transaction is still under processing."
             else:
                 payment.result_description = f"Waiting for M-Pesa confirmation: {error}"
-            _save_payment_fields(payment, ["result_description", "updated_at"])
+            _save_payment_fields(payment, ["result_description"])
 
     return render(request, "course_payment_status.html", {
         "payment": payment,
