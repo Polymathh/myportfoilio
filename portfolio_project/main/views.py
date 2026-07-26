@@ -528,7 +528,11 @@ def custom_admin_dashboard(request):
 
 @staff_required
 def custom_admin_profile(request):
-    profile, _ = SiteProfile.objects.get_or_create(name="Wambugu Moses")
+    # The public site uses the first profile record.  Edit that same record so
+    # changes made here are always reflected on the website.
+    profile = SiteProfile.objects.first()
+    if profile is None:
+        profile = SiteProfile.objects.create()
     form = SiteProfileForm(request.POST or None, instance=profile)
     if request.method == "POST" and form.is_valid():
         form.save()
