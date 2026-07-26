@@ -118,7 +118,9 @@ def _save_payment_fields(payment, fields):
 
 
 def get_site_profile():
-    return SiteProfile.objects.first() or SiteProfile()
+    # If a legacy profile remains in the database, use the profile most
+    # recently edited through the custom admin rather than the oldest record.
+    return SiteProfile.objects.order_by("-updated_at", "-pk").first() or SiteProfile()
 
 
 def get_seo_settings():
@@ -528,9 +530,8 @@ def custom_admin_dashboard(request):
 
 @staff_required
 def custom_admin_profile(request):
-    # The public site uses the first profile record.  Edit that same record so
-    # changes made here are always reflected on the website.
-    profile = SiteProfile.objects.first()
+    # Edit the same profile record the public site displays.
+    profile = get_site_profile()
     if profile is None:
         profile = SiteProfile.objects.create()
     form = SiteProfileForm(request.POST or None, instance=profile)
