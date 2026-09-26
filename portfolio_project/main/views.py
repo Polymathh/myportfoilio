@@ -2,6 +2,7 @@ import csv
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
+from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.db import DatabaseError
 from django.template.loader import render_to_string
@@ -398,28 +399,38 @@ def portfolio_home(request):
     form = ContactForm()
 
     if request.method == "POST":
+        if request.POST.get("website"):
+            # Honeypot field: real visitors never see or fill this input.
+            # Pretend success so bots don't learn to avoid it.
+            return redirect("portfolio_home")
+
         form = ContactForm(request.POST)
         if form.is_valid():
             contact = form.save()
-            subject = f"Portfolio Contact: {contact.subject}"
-            message = f"Name: {contact.name}\nPhone: {contact.phone}\nEmail: {contact.email}\nMessage:\n{contact.message}"
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                fail_silently=False,
-                # headers={"Reply-To": contact.email},
-            )
 
-            # Optional: Auto-reply to sender
-            send_mail(
-                subject="Thanks for contacting me",
-                message="Hi {},\n\nThanks for reaching out, I will reply ASAP.".format(contact.name),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[contact.email],
-                fail_silently=True,
-            )
+            # Cap how often notification/auto-reply emails actually go out,
+            # regardless of how many submissions come in, so a spam burst
+            # can't flood the inbox or relay mail to third parties.
+            if cache.add("contact_form_email_throttle", True, timeout=60):
+                subject = f"Portfolio Contact: {contact.subject}"
+                message = f"Name: {contact.name}\nPhone: {contact.phone}\nEmail: {contact.email}\nMessage:\n{contact.message}"
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=True,
+                    # headers={"Reply-To": contact.email},
+                )
+
+                # Optional: Auto-reply to sender
+                send_mail(
+                    subject="Thanks for contacting me",
+                    message="Hi {},\n\nThanks for reaching out, I will reply ASAP.".format(contact.name),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[contact.email],
+                    fail_silently=True,
+                )
 
             messages.success(request, "Thanks! Your message has been sent.")
             return redirect("portfolio_home")

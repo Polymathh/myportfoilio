@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 import shutil
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -22,10 +24,13 @@ PROJECT_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@s*0s0@td@2_%_#am8zfv7fm_15rlg(vea2y&ni-!^w*aq&u*-'
+SECRET_KEY = config(
+    "SECRET_KEY",
+    default='django-insecure-@s*0s0@td@2_%_#am8zfv7fm_15rlg(vea2y&ni-!^w*aq&u*-',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*", ".vercel.app", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = [
@@ -160,8 +165,6 @@ MEDIA_ROOT = BASE_DIR/ 'media'  # Directory where uploaded files are stored
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-from decouple import config
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
